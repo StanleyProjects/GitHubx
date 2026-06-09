@@ -141,6 +141,16 @@ for MOCKS_CURL_DST in "${VALUES[@]}"; do
  rm "${GITHUBX_DST}"
 done
 
-echo 'Not implemented!'; exit 1 # todo
+:> "${STDOUT}"
+:> "${STDERR}"
+GITHUBX_DST="$(mktemp)"
+rm "${GITHUBX_DST}"
+PATH="$mocks/curl/bin:${PATH}" \
+MOCKS_CURL_HTTP_CODE=200 \
+MOCKS_CURL_DST='{"id":42}' \
+"${SCRIPT}" "${GITHUBX_PAT}" "${GITHUBX_DST}" 2>"${STDERR}"
+. $asserts/strings/eq.sh "${SCRIPT}" "$?" '0'
+. $asserts/files/empty.sh "${STDOUT}"
+. $asserts/files/empty.sh "${STDERR}"
 
 rm "${STDERR}"
