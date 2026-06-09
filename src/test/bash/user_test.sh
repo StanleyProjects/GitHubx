@@ -125,7 +125,7 @@ for MOCKS_CURL_DST in "${VALUES[@]}"; do
  rm "${GITHUBX_DST}"
 done
 
-VALUES=('{}' '{"id":null}' '{"id":0}' '{"id":"42"}')
+VALUES=('{}' '{"id":null}' '{"id":0}' '{"id":"42"}' '{"id":-1}' '{"id":0.5}')
 for MOCKS_CURL_DST in "${VALUES[@]}"; do
  :> "${STDOUT}"
  :> "${STDERR}"
